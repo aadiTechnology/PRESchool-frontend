@@ -23,8 +23,12 @@ const TeacherRegister: React.FC = () => {
 
     try {
       await registerTeacher.register({
-        firstName, lastName, email, phone, password,
-        confirmPassword: '',
+        first_name: firstName,
+        last_name: lastName,
+        email,
+        phone,
+        password,
+        confirm_password: '',
         role: ''
       });
       navigate('/login'); // Redirect to login after successful registration

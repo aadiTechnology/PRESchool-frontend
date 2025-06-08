@@ -1,4 +1,6 @@
 import api from './api';
+import { loginUser } from './loginUser';
+import { registerUser } from './registerUser';
 
 
 export interface LoginParams {
@@ -63,4 +65,10 @@ export const useAuth = () => {
   };
 };
 
-export default { login, register };
+const authService = {
+  login: loginUser,
+  register: registerUser,
+  // ...
+};
+
+export default authService;

@@ -13,11 +13,12 @@ export const useAuth = () => {
 
   const login = async (email: string, password: string) => {
     try {
-      const response = await authService.login({ email, password });
+      const response = await authService.login(email, password);
       setUser(response.user);
       setIsAuthenticated(true);
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem('user', JSON.stringify(response.user)); // <-- Add this line
+      localStorage.setItem('token', response.access_token);
+      localStorage.setItem('user', JSON.stringify(response.user));
+      return true;
     } catch (error) {
       throw new Error('Login failed');
     }
@@ -25,8 +26,17 @@ export const useAuth = () => {
 
   const register = async (userData: { firstName: string; lastName: string; email: string; phone: string; password: string; confirmPassword: string; role: string }) => {
     try {
-      const response = await authService.register(userData);
-      return response.data;
+      const registerParams = {
+        first_name: userData.firstName,
+        last_name: userData.lastName,
+        email: userData.email,
+        phone: userData.phone,
+        password: userData.password,
+        confirm_password: userData.confirmPassword,
+        role: userData.role
+      };
+      await authService.register(registerParams);
+      return;
     } catch (error) {
       throw new Error('Registration failed');
     }

@@ -9,17 +9,17 @@ const screens = [
 ];
 
 export default function SidebarMenu({ userRole }: { userRole: string }) {
-  const permissions = JSON.parse(localStorage.getItem('rolePermissions') || '{}');
+  // const permissions = JSON.parse(localStorage.getItem('rolePermissions') || '{}');
 
   return (
     <List>
-      {screens
+      {/* {screens
         .filter(screen => (permissions[screen.path] || []).includes(userRole))
         .map(screen => (
           <ListItem button component={Link} to={screen.path} key={screen.path}>
             <ListItemText primary={screen.label} />
           </ListItem>
-        ))}
+        ))} */}
     </List>
   );
 }

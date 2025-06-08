@@ -10,6 +10,7 @@ const Login = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
   const { login: setUser } = useAuth();
+  const { login } = useAuth();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -20,28 +21,29 @@ const Login = () => {
     }
   }, [setUser]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError('');
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   setError('');
 
+  //   try {
+  //     const response = await loginUser(email, password);
+  //     localStorage.setItem('token', response.accessToken);
+  //     localStorage.setItem('user', JSON.stringify(response.user));
+  //     setUser(response.user, password); // Set user in context
+  //     navigate('/dashboard');           // Redirect to dashboard
+  //   } catch (err: any) {
+  //     setError(err.message || 'Login failed');
+  //   }
+  // };
+  const clickLogin = async () => {
+    setError('');
     try {
       const response = await loginUser(email, password);
-      localStorage.setItem('token', response.accessToken);
+      localStorage.setItem('token', response.access_token);
       localStorage.setItem('user', JSON.stringify(response.user));
+      console.log('Login response:', response.user);
       setUser(response.user, password); // Set user in context
-      navigate('/dashboard');           // Redirect to dashboard
-    } catch (err: any) {
-      setError(err.message || 'Login failed');
-    }
-  };
-  const clickLogin = () => {
-    setError('');
-
-    try {
-      const response = loginUser(email, password);
-      // localStorage.setItem('token', response.accessToken);
-      // setUser(response.user, password); // Pass both user and password
-      navigate('/dashboard');
+      navigate('/AdminConfig');
     } catch (err: any) {
       setError(err.message || 'Login failed');
     }
@@ -52,7 +54,7 @@ const Login = () => {
         Login
       </Typography>
       {error && <Typography color="error">{error}</Typography>}
-      <form onSubmit={handleSubmit}>
+      <form >
         <TextField
           label="Email"
           variant="outlined"
