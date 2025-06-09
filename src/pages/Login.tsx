@@ -7,19 +7,20 @@ import useAuth from '../hooks/useAuth';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLogin, setIsLogin] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
   const { login: setUser } = useAuth();
   const { login } = useAuth();
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    const user = localStorage.getItem('user');
-    if (token && user) {
-      setUser(JSON.parse(user), password);
-      // setToken(token); // Removed because setToken does not exist
-    }
-  }, [setUser]);
+  // useEffect(() => {
+  //   const token = localStorage.getItem('token');
+  //   const user = localStorage.getItem('user');
+  //   if (token && user) {
+  //     // setUser(JSON.parse(user), password);
+  //     // setToken(token); // Removed because setToken does not exist
+  //   }
+  // }, [setUser]);
 
   // const handleSubmit = async (e: React.FormEvent) => {
   //   e.preventDefault();
@@ -42,12 +43,16 @@ const Login = () => {
       localStorage.setItem('token', response.access_token);
       localStorage.setItem('user', JSON.stringify(response.user));
       console.log('Login response:', response.user);
-      setUser(response.user, password); // Set user in context
-      navigate('/AdminConfig');
+      setIsLogin(true);
+      // setUser(response.user, password); // Set user in context
     } catch (err: any) {
       setError(err.message || 'Login failed');
     }
   };
+  useEffect(() => {
+    if(isLogin)
+      navigate('/dashboard'); // Redirect to dashboard
+  }, [isLogin]);
   return (
     <Container maxWidth="xs">
       <Typography variant="h4" component="h1" gutterBottom>

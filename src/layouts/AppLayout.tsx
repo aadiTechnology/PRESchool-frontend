@@ -11,7 +11,7 @@ const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       <Container component="main" maxWidth="lg">
         {children}
       </Container>
-      <ChatWidget />
+      {/* <ChatWidget /> */}
       <Footer />
     </div>
   );

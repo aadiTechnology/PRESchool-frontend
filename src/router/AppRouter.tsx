@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import AppLayout from '../layouts/AppLayout';
 import AuthLayout from '../layouts/AuthLayout';
-import Dashboard from '../features/dashboard/Dashboard';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
 import UserList from '../features/user/UserList';
@@ -11,6 +10,8 @@ import TeacherRegister from '../features/teacher/TeacherRegister';
 import NotFound from '../pages/NotFound';
 import RouteGuard from './RouteGuards';
 import AdminConfig from '../pages/AdminConfig';
+
+import Dashboard from '../features/dashboard/Dashboard';
 
 const AppRouter: React.FC = () => {
   return (
@@ -32,12 +33,14 @@ const AppRouter: React.FC = () => {
             </AuthLayout>
           }
         />
+        
+        
         <Route
           path="/dashboard"
           element={
-            <AppLayout>
+          <AuthLayout>
               <Dashboard />
-            </AppLayout>
+           </AuthLayout>
           }
         />
         <Route
