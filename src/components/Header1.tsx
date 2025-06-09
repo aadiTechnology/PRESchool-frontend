@@ -11,15 +11,15 @@ import {
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import SidebarMenu from './SidebarMenu';
-import Header from './Header';// 👈 Make sure this file exists and is implemented
+import ProfileMenu from './ProfileMenu'; // ProfileMenu component
 
-const schoolName = "Greenfield International School";
-const logoUrl = "/logo.png"; // Replace with actual logo path
+const schoolName = 'Greenfield International School';
+const logoUrl = '/images/happy_kids1.png'; // Corrected and simplified
 
 const Header1: React.FC = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm')); // sm = 600px
 
   const handleDrawerOpen = () => setDrawerOpen(true);
   const handleDrawerClose = () => setDrawerOpen(false);
@@ -29,12 +29,11 @@ const Header1: React.FC = () => {
       <AppBar
         position="static"
         sx={{
-          backgroundColor: '#ffffff',
+          backgroundColor: theme.palette.primary.main,
+          color: '#fff',
           boxShadow: 1,
-          color: 'black',
           height: 64,
           justifyContent: 'center',
-          
         }}
       >
         <Toolbar
@@ -42,12 +41,12 @@ const Header1: React.FC = () => {
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            px: 2,
+            px: isMobile ? 1 : 2,
             height: '100%',
           }}
         >
-          {/* LEFT: Menu Icon + Logo */}
-          <Box sx={{ display: 'flex', alignItems: 'center', minWidth: 120 }}>
+          {/* LEFT: Drawer Icon + Logo */}
+          <Box sx={{ display: 'flex', alignItems: 'center', minWidth: 100 }}>
             <IconButton
               edge="start"
               color="inherit"
@@ -57,7 +56,14 @@ const Header1: React.FC = () => {
             >
               <MenuIcon />
             </IconButton>
-            <img src={"/images/happy_kids1.png"} alt="School Logo" style={{ height: 40 }} />
+            <img
+              src={logoUrl}
+              alt="School Logo"
+              style={{
+                height: isMobile ? 30 : 40,
+                maxWidth: '100%',
+              }}
+            />
           </Box>
 
           {/* CENTER: School Name */}
@@ -68,6 +74,7 @@ const Header1: React.FC = () => {
               right: 0,
               textAlign: 'center',
               pointerEvents: 'none',
+              px: 1,
             }}
           >
             <Typography
@@ -81,12 +88,12 @@ const Header1: React.FC = () => {
 
           {/* RIGHT: Profile Menu */}
           <Box sx={{ minWidth: 48 }}>
-            <Header />
+            <ProfileMenu />
           </Box>
         </Toolbar>
       </AppBar>
 
-      {/* Drawer */}
+      {/* Sidebar Drawer */}
       <Drawer
         anchor="left"
         open={drawerOpen}

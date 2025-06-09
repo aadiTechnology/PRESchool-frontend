@@ -14,7 +14,7 @@ import FeedbackIcon from '@mui/icons-material/Feedback';
 import LockIcon from '@mui/icons-material/Lock';
 import LogoutIcon from '@mui/icons-material/Logout';
 
-const Header: React.FC = () => {
+const ProfileMenu: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -112,4 +112,4 @@ const Header: React.FC = () => {
   );
 };
 
-export default Header;
+export default ProfileMenu;

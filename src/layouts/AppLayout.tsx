@@ -1,11 +1,11 @@
 import React from 'react';
 import { Box, CssBaseline } from '@mui/material';
-import Header from '../components/Header';
+import Header from '../components/ProfileMenu';
 import Footer from '../components/Footer';
 import Header1 from '../components/Header1';
 
 const HEADER_HEIGHT = 54; // adjust if your header is taller
-const FOOTER_HEIGHT = 80; // adjust if your footer is taller
+//const FOOTER_HEIGHT = 80; // adjust if your footer is taller
 
 const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
@@ -45,7 +45,8 @@ const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         </Box>
 
         {/* Footer */}
-        <Box sx={{ height: FOOTER_HEIGHT, flexShrink: 0 }}>
+        <Box sx={{ flexShrink: 0, mt: 'auto', bgcolor: '#f5f5f5' }}>
+          {/* <Footer /> */}
           <Footer />
         </Box>
       </Box>
