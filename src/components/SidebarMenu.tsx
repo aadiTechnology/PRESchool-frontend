@@ -13,13 +13,13 @@ export default function SidebarMenu({ userRole }: { userRole: string }) {
 
   return (
     <List>
-      {/* {screens
-        .filter(screen => (permissions[screen.path] || []).includes(userRole))
+      {screens
+        // .filter(screen => (permissions[screen.path] || []).includes(userRole))
         .map(screen => (
           <ListItem button component={Link} to={screen.path} key={screen.path}>
             <ListItemText primary={screen.label} />
           </ListItem>
-        ))} */}
+        ))}
     </List>
   );
 }

@@ -1,19 +1,26 @@
 import React from 'react';
-import { Container } from '@mui/material';
+import { Box } from '@mui/material';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import ChatWidget from '../components/ChatWidget';
+// import ChatWidget from '../components/ChatWidget';
 
 const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
-    <div>
-      <Header children={undefined} />
-      <Container component="main" maxWidth="lg">
+    <Box
+      display="flex"
+      flexDirection="column"
+      minHeight="100vh"
+      p={2}
+    >
+      <Header />
+
+      {/* Content should grow and take all remaining space */}
+      <Box component="main" flex="1">
         {children}
-      </Container>
-      {/* <ChatWidget /> */}
+      </Box>
+
       <Footer />
-    </div>
+    </Box>
   );
 };
 

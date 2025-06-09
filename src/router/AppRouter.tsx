@@ -38,9 +38,9 @@ const AppRouter: React.FC = () => {
         <Route
           path="/dashboard"
           element={
-          <AuthLayout>
+          <AppLayout>
               <Dashboard />
-           </AuthLayout>
+           </AppLayout>
           }
         />
         <Route
