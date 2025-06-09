@@ -1,75 +1,114 @@
 import React, { useState } from 'react';
-import SidebarMenu from '../components/SidebarMenu';
 import {
+  Avatar,
   Box,
-  AppBar,
-  Toolbar,
   Typography,
   IconButton,
-  Tooltip,
-  Drawer,
+  Menu,
+  MenuItem,
+  ListItemIcon,
+  Divider,
 } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import FeedbackIcon from '@mui/icons-material/Feedback';
+import LockIcon from '@mui/icons-material/Lock';
 import LogoutIcon from '@mui/icons-material/Logout';
 
-const Header: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
-  const [drawerOpen, setDrawerOpen] = useState(false);
+const Header: React.FC = () => {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
 
-  const handleDrawerOpen = () => setDrawerOpen(true);
-  const handleDrawerClose = () => setDrawerOpen(false);
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const userName = 'Ms. Anubha Brajesh';
+  const userRole = 'Teacher';
 
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: '#fafbfc' }}>
-      {/* Top Header Bar */}
-      <AppBar position="static" color="default" elevation={1} sx={{ bgcolor: '#1976d2', color: '#fff' }}>
-        <Toolbar sx={{ justifyContent: 'space-between' }}>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="open sidebar"
-              onClick={handleDrawerOpen}
-              sx={{ mr: 2 }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" noWrap component="div">
-              ERP System
-            </Typography>
-          </Box>
-          <Box>
-            <Tooltip title="Profile">
-              <IconButton color="inherit">
-                <AccountCircleIcon />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="Logout">
-              <IconButton color="inherit">
-                <LogoutIcon />
-              </IconButton>
-            </Tooltip>
-          </Box>
-        </Toolbar>
-      </AppBar>
+    <>
+      {/* Trigger: Profile Avatar */}
+      <IconButton onClick={handleClick} size="small" sx={{ ml: 2 }}>
+        <Avatar sx={{ width: 40, height: 40 }}>
+          {userName.charAt(0)}
+        </Avatar>
+      </IconButton>
 
-      {/* Sidebar Drawer */}
-      <Drawer
-        anchor="left"
-        open={drawerOpen}
-        onClose={handleDrawerClose}
+      {/* Menu Dropdown */}
+      <Menu
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        onClick={handleClose}
         PaperProps={{
-          sx: { width: 220, bgcolor: '#f5f5f5', borderRight: '1px solid #ddd' },
+          elevation: 4,
+          sx: {
+            mt: 1.5,
+            minWidth: 220,
+            overflow: 'visible',
+            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.1))',
+            borderRadius: 2,
+            '& .MuiAvatar-root': {
+              width: 40,
+              height: 40,
+              ml: -0.5,
+              mr: 1,
+            },
+          },
         }}
+        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <Box sx={{ width: 220, minHeight: '100vh' }}>
-          <SidebarMenu userRole="admin" />
+        {/* User Info */}
+        <Box px={2} py={1}>
+          <Box display="flex" alignItems="center">
+            <Avatar>{userName.charAt(0)}</Avatar>
+            <Box ml={1}>
+              <Typography variant="subtitle2" fontWeight="bold" color="primary">
+                {userName}
+              </Typography>
+              <Typography variant="caption" color="text.secondary">
+                {userRole}
+              </Typography>
+            </Box>
+          </Box>
         </Box>
-      </Drawer>
 
-      {/* Main Content */}
-      <Box sx={{ p: 3 }}>{children}</Box>
-    </Box>
+        <Divider />
+
+        {/* Menu Options */}
+        <MenuItem>
+          <ListItemIcon>
+            <AccountCircleIcon fontSize="small" />
+          </ListItemIcon>
+          Profile
+        </MenuItem>
+        <MenuItem>
+          <ListItemIcon>
+            <FeedbackIcon fontSize="small" />
+          </ListItemIcon>
+          Feedback
+        </MenuItem>
+        <MenuItem>
+          <ListItemIcon>
+            <LockIcon fontSize="small" />
+          </ListItemIcon>
+          Change Password
+        </MenuItem>
+
+        <Divider />
+
+        <MenuItem>
+          <ListItemIcon>
+            <LogoutIcon fontSize="small" />
+          </ListItemIcon>
+          Logout
+        </MenuItem>
+      </Menu>
+    </>
   );
 };
 

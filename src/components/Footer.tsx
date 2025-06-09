@@ -16,7 +16,6 @@ const Footer: React.FC = () => {
     <Box
       component="footer"
       sx={{
-        mt: 'auto',
         p: 2,
         backgroundColor: 'primary.main',
         color: 'white',
