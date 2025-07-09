@@ -10,13 +10,15 @@ export interface User {
 }
 
 export interface RegisterUser {
-  first_name: string;
-  last_name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   phone: string;
   password: string;
-  confirm_password: string;
-  role: string;
+  confirmPassword: string;
+  role: number;
+  qualification: string;
+  preschoolId: number;
 }
 
 export interface LoginUser {

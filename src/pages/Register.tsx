@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import { TextField, Button, Container, Typography, MenuItem } from '@mui/material';
-import { registerUser } from '../services/registerUser';
 import { useNavigate } from 'react-router-dom';
 
 export default function Register() {
   const [formData, setFormData] = useState({
-    first_name: '',
-    last_name: '',
+    firstName: '',
+    lastName: '',
     email: '',
     phone: '',
     password: '',
-    confirm_password: '',
+    confirmPassword: '',
     role: '',
+    qualification: '',
+    preschoolId: '',
   });
 
   const navigate = useNavigate();
@@ -21,24 +22,28 @@ export default function Register() {
   };
 
   const handleSubmit = async () => {
-    if (formData.password !== formData.confirm_password) {
-      alert("Passwords do not match");
+    if (formData.password !== formData.confirmPassword) {
+      alert('Passwords do not match');
       return;
     }
     try {
-      await registerUser({
-        first_name: formData.first_name,
-        last_name: formData.last_name,
-        email: formData.email,
-        phone: formData.phone,
-        password: formData.password,
-        confirm_password: formData.confirm_password,
-        role: formData.role,
+      const response = await fetch('http://localhost:8000/api/v1/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...formData,
+          role: Number(formData.role),
+          preschoolId: Number(formData.preschoolId),
+        }),
       });
-      alert("User registered successfully");
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.detail || 'Registration failed');
+      }
+      alert('User registered successfully');
       navigate('/login');
     } catch (error: any) {
-      alert(error?.response?.data?.detail || "Error registering user");
+      alert(error.message || 'Error registering user');
     }
   };
 
@@ -46,12 +51,12 @@ export default function Register() {
     <Container maxWidth="sm">
       <Typography variant="h4" gutterBottom>Register</Typography>
       <TextField
-        fullWidth margin="normal" label="First Name" name="first_name"
-        value={formData.first_name} onChange={handleChange}
+        fullWidth margin="normal" label="First Name" name="firstName"
+        value={formData.firstName} onChange={handleChange}
       />
       <TextField
-        fullWidth margin="normal" label="Last Name" name="last_name"
-        value={formData.last_name} onChange={handleChange}
+        fullWidth margin="normal" label="Last Name" name="lastName"
+        value={formData.lastName} onChange={handleChange}
       />
       <TextField
         fullWidth margin="normal" label="Email" name="email" type="email"
@@ -66,19 +71,25 @@ export default function Register() {
         value={formData.password} onChange={handleChange}
       />
       <TextField
-        fullWidth margin="normal" label="Confirm Password" name="confirm_password" type="password"
-        value={formData.confirm_password} onChange={handleChange}
+        fullWidth margin="normal" label="Confirm Password" name="confirmPassword" type="password"
+        value={formData.confirmPassword} onChange={handleChange}
       />
       <TextField
         select fullWidth margin="normal" label="Role" name="role"
         value={formData.role} onChange={handleChange}
       >
-        <MenuItem value="admin">Admin</MenuItem>
-        <MenuItem value="Teacher">Teacher</MenuItem>
-        <MenuItem value="user">User</MenuItem>
-        
-        {/* Add more roles as needed */}
+        <MenuItem value={1}>Admin</MenuItem>
+        <MenuItem value={2}>Teacher</MenuItem>
+        <MenuItem value={3}>User</MenuItem>
       </TextField>
+      <TextField
+        fullWidth margin="normal" label="Qualification" name="qualification"
+        value={formData.qualification} onChange={handleChange}
+      />
+      <TextField
+        fullWidth margin="normal" label="Preschool ID" name="preschoolId" type="number"
+        value={formData.preschoolId} onChange={handleChange}
+      />
       <Button variant="contained" color="primary" onClick={handleSubmit} fullWidth>
         Register
       </Button>

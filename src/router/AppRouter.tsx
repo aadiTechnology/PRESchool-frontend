@@ -6,7 +6,7 @@ import Login from '../pages/Login';
 import Register from '../pages/Register';
 import UserList from '../features/user/UserList';
 import UserEdit from '../features/user/UserEdit';
-import TeacherRegister from '../features/teacher/TeacherRegister';
+
 import NotFound from '../pages/NotFound';
 import RouteGuard from './RouteGuards';
 import AdminConfig from '../pages/AdminConfig';
@@ -72,16 +72,7 @@ const AppRouter: React.FC = () => {
             </RouteGuard>
           }
         />
-        <Route
-          path="/teacher/register"
-          element={
-            <RouteGuard>
-              <AppLayout>
-                <TeacherRegister />
-              </AppLayout>
-            </RouteGuard>
-          }
-        />
+       
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>

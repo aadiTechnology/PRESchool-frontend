@@ -1,11 +1,13 @@
 export interface RegisterUserParams {
-  first_name: string;
-  last_name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   phone: string;
   password: string;
-  confirm_password: string;
-  role: string;
+  confirmPassword: string;
+  role: number;
+  qualification: string;
+  preschoolId: number;
 }
 
 export async function registerUser(params: RegisterUserParams): Promise<void> {
