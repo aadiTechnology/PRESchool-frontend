@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import AppLayout from '../layouts/AppLayout';
 import AuthLayout from '../layouts/AuthLayout';
 import Login from '../pages/Login';
-import Register from '../pages/Register';
+import RegisterPage from '../features/auth/pages/RegisterPage';
 import UserList from '../features/user/UserList';
 import UserEdit from '../features/user/UserEdit';
 
@@ -29,7 +29,7 @@ const AppRouter: React.FC = () => {
           path="/register"
           element={
             <AuthLayout>
-              <Register />
+              <RegisterPage />
             </AuthLayout>
           }
         />
